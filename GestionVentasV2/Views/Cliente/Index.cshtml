@@ -1,0 +1,59 @@
+﻿@model IEnumerable<GestionVentasV2.Models.cliente>
+
+@{
+    ViewData["Title"] = "Clientes";
+}
+
+<h3>Administración de clientes</h3>
+
+<p>
+    <a class="btn btn-primary btn-sm mt-1" asp-action="Create">Registrar cliente</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre completo
+            </th>
+            <th>
+                Teléfono
+            </th>
+            <th>
+                Dirección
+            </th>
+            <th>
+                Correo Electrónico
+            </th>
+            <th>
+                Estado
+            </th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre) @Html.DisplayFor(modelItem => item.apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.correoElectronico)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estados.nombre)
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm mt-1" asp-action="Edit" asp-route-id="@item.id">Actualizar</a>
+                <a class="btn btn-primary btn-sm mt-1" asp-action="Details" asp-route-id="@item.id">Ver detalles</a>
+                <a class="btn btn-sm mt-1 @(item.estados_id == 1 ? "btn-danger" : "btn-success")" asp-action="Delete" asp-route-id="@item.id">@(item.estados_id == 1 ? "Deshabilitar" : "Habilitar")</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

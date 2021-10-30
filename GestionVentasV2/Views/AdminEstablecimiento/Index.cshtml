@@ -1,0 +1,66 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+    ViewData["Title"] = "Login";
+    Layout = "_LayoutEstablecimiento";
+
+
+}
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">@ViewBag.Establecimiento</h1>
+            <span data-animate="fadeInUp" data-delay="300">Administración</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Inicio</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+
+    <div class="row clearfix">
+
+        <div class="col-md-9">
+
+            <img src="/imagenes/usuarios/avatar.jpg" class="alignleft img-circle img-thumbnail my-0" alt="Avatar" style="max-width: 84px;">
+
+            <div class="heading-block border-0">
+                <h3>@User.Identity.Name</h3>
+                <span>Bienvenido</span>
+            </div>
+
+            <div class="clear"></div>
+        </div>
+
+        <div class="col-md-3">
+            <h4>Administrar</h4>
+            <div class="list-group">
+                <a asp-controller="User" asp-action="Index" class="list-group-item list-group-item-action d-flex justify-content-between"><div>Usuarios</div><i class="icon-user"></i></a>
+                <a asp-controller="Producto" asp-action="Index" class="list-group-item list-group-item-action d-flex justify-content-between"><div>Productos</div><i class="icon-box"></i></a>
+                <a asp-controller="Compra" asp-action="Index" class="list-group-item list-group-item-action d-flex justify-content-between"><div>Compras</div><i class="icon-laptop2"></i></a>
+                <a asp-controller="Pedido" asp-action="Index" class="list-group-item list-group-item-action d-flex justify-content-between"><div>Pedidos</div><i class="icon-envelope2"></i></a>
+                <a asp-controller="Venta" asp-action="Index" class="list-group-item list-group-item-action d-flex justify-content-between"><div>Ventas</div><i class="icon-credit-cards"></i></a>
+                <form class="form-inline" asp-controller="User" asp-action="Logout">
+                    <button type="submit" class="list-group-item list-group-item-action d-flex justify-content-between"><div>Salir</div><i class="icon-sign-out-alt"></i></button>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿@model GestionVentasV2.Models.compra
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "_LayoutEstablecimiento";
+}
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Compras</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Prodcutos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+
+    <h3>Detalle compra</h3>
+
+    <div>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                No. Factura
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.noFactura)
+            </dd>
+            <dt class="col-sm-2">
+                Total Factura
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.totalFactura)
+            </dd>
+            <dt class="col-sm-2">
+                Fecha
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fecha)
+            </dd>
+            
+            <dt class="col-sm-2">
+                Establecimiento
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.establecimiento.nombreComercial)
+            </dd>
+            <dt class="col-sm-2">
+                Usuario
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.usuario.apellido)
+            </dd>
+            <dt class="col-sm-2">
+                Estado
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.estados.nombre)
+            </dd>
+        </dl>
+    </div>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+        <a asp-action="Index">Regresar a la lista</a>
+    </div> 
+</div>

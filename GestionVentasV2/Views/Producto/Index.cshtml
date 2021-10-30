@@ -1,0 +1,98 @@
+﻿@model IEnumerable<GestionVentasV2.Models.producto>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutEstablecimiento";
+}
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Productos</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Prodcutos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Registrar producto</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Nombre del producto
+                </th>
+                <th>
+                    Descripción
+                </th>
+                <th>
+                    Imagen Producto
+                </th>
+                <th>
+                    Establecimiento
+                </th>
+                <th>
+                    Tipo de producto
+                </th>
+                <th>
+                    Categoría
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Acciones
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.descripcion)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.pathImagen)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.establecimiento.nombreComercial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.tipoProducto.nombre)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.categoria.descripcion)
+                    </td>
+                    <td>
+                        @(item.estados_id == 1 ? "Activo" : "Inactivo")
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-sm mt-1" asp-action="Edit" asp-route-id="@item.id">Actualizar</a>
+                        <a class="btn btn-primary btn-sm mt-1" asp-action="Details" asp-route-id="@item.id">Ver detalles</a>
+                        <a class="btn btn-sm mt-1 @(item.estados_id == 1 ? "btn-danger" : "btn-success")" asp-action="Delete" asp-route-id="@item.id">@(item.estados_id == 1 ? "Deshabilitar" : "Habilitar")</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    </div>

@@ -1,0 +1,84 @@
+﻿@model IEnumerable<GestionVentasV2.Models.ViewModels.ventaVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutEstablecimiento";
+}
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Ventas</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Prodcutos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+    <h3>Ventas</h3>
+
+
+    <table class="table">
+        <thead>
+            <tr>
+
+                <th>
+                    No. Factura
+                </th>
+                <th>
+                    Fecha Facturacion
+                </th>
+                <th>
+                    Cliente
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Total
+                </th>
+
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fechaEntrega)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombreCliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.totalVenta)
+                    </td>
+
+                    <td>
+
+                        <a class="btn btn-sm btn-primary mt-1" asp-action="Details" asp-route-id="@item.id">Detalle Factura</a> |
+                        <a class="btn btn-sm mt-1 @(item.estados_id == 10 ? "btn-danger" : "btn-success")" asp-action="Delete" asp-route-id="@item.id">@(item.estados_id == 10 ? "Anular" : "Habilitar")</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table></div>

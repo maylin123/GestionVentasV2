@@ -1,0 +1,119 @@
+﻿@model GestionVentasV2.Models.producto
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "_LayoutEstablecimiento";
+}
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Productos</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Prodcutos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+
+    <h1>@(Model.estados_id== 1 ? "Deshabilitar" : "Habilitar")</h1>
+
+    <h3>Está seguro de @(Model.estados_id== 1 ? "deshabilitar" : "habilitar") el producto?</h3>
+    <div>
+        <h4>producto</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.nombre)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.descripcion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.descripcion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.descripcion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.pathImagen)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.pathImagen)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.usuarioCreacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.usuarioCreacion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.fechaCreacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fechaCreacion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.usuarioActualizacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.usuarioActualizacion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.fechaActualizacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fechaActualizacion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.establecimiento)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.establecimiento.correoElectronico)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.tipoProducto)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.tipoProducto.nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.categoria)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.categoria.descripcion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.estados)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.estados.nombre)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="id" />
+            <input type="submit" value="@(Model.estados_id== 1 ? "Deshabilitar" : "Habilitar")" class="btn @(Model.estados_id== 1 ? "btn-danger" : "btn-success")" /> |
+            <a asp-action="Index">Regresar a la lista</a>
+        </form>
+    </div>
+</div>
+

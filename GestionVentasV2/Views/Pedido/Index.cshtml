@@ -1,0 +1,116 @@
+﻿@model IEnumerable<GestionVentasV2.Models.ViewModels.PedidoVM>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "_LayoutEstablecimiento";
+}
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Pedidos</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Prodcutos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+    <h3>Pedido</h3>
+
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Crear Pedido</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Fecha Solicitud
+                </th>
+                <th>
+                    Nombre de Cliente
+                </th>
+                <th>
+                    Nit
+                </th>
+                <th>
+                    Dirección de Entrega
+                </th>
+                <th>
+                    Teéfono
+                </th>
+                <th>
+                    Correo Electrónico
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Total
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.fecha)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombreCliente)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.direccionEntrega),
+                        @Html.DisplayFor(modelItem => item.municipio),
+                        @Html.DisplayFor(modelItem => item.departamento)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.telefono)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.correo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.estado)
+                    </td>
+                    <td>
+                        Q @Html.DisplayFor(modelItem => item.total)
+                    </td>
+
+                    <td>
+                        <!--<a class="btn btn-primary btn-sm mt-1" asp-action="Edit" asp-route-id="@item.id">Actualizar</a>-->
+                        <a class="btn btn-primary btn-xs mt-1" asp-action="Details" asp-route-id="@item.id">Ver detalles</a>
+
+                        @if (item.estados_id == 1)
+                        {
+                            <a class="btn btn-xs mt-1 @(item.estados_id == 1 ? "btn-danger" : "btn-success")" asp-action="Delete" asp-route-id="@item.id">@(item.estados_id == 1 ? "Anular" : "Habilitar")</a>
+
+                            <form class="cart mb-0 d-flex justify-content-between align-items-center" asp-action="Create" asp-controller="Venta" method="post" enctype='multipart/form-data'>
+                                <input type="hidden" name="pedido_id" value="@item.id" />
+
+                                <button type="submit" class="btn btn-xs btn-success mt-1 btn-xs">Generar Factura</button>
+
+                            </form><!-- Product Single - Quantity & Cart Button End -->
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

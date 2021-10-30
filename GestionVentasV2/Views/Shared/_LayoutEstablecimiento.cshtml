@@ -1,0 +1,147 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - GestionVentas</title>
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,400i,700|Poppins:300,400,500,600,700|PT+Serif:400,400i&display=swap" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="~/css/bootstrap.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/style.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/dark.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/font-icons.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/animate.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/magnific-popup.css" type="text/css" />
+    <link rel="stylesheet" href="~/css/toastr.css" />
+
+    <link rel="stylesheet" href="~/css/custom.css" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <style>
+
+        .product-image > a {
+            height: 200px !important;
+        }
+
+        #logo img {
+            display: block;
+            height: 60px !important;
+        }
+    </style>
+
+</head>
+<body class="stretched">
+    <div id="wrapper" class="clearfix">
+
+        <!-- Header
+        ============================================= -->
+        <header id="header" class="full-header">
+            <div id="header-wrap">
+                <div class="container">
+                    <div class="header-row">
+
+                        <!-- Logo
+                        ============================================= -->
+                        <div id="logo">
+                            <a style="padding:10px;" href="index.html" class="standard-logo" data-dark-logo="/imagenes/logos/logo.png"><img src="/imagenes/logos/logo.png" style="height:60px;" alt="Logo"></a>
+                            <a style="padding:10px;" href="index.html" class="retina-logo" data-dark-logo="/imagenes/logos/logo.png"><img src="/imagenes/logos/logo.png" style="height:60px;" alt="Logo"></a>
+                        </div><!-- #logo end -->
+
+                        <div id="primary-menu-trigger">
+                            <svg class="svg-trigger" viewBox="0 0 100 100"><path d="m 30,33 h 40 c 3.722839,0 7.5,3.126468 7.5,8.578427 0,5.451959 -2.727029,8.421573 -7.5,8.421573 h -20"></path><path d="m 30,50 h 40"></path><path d="m 70,67 h -40 c 0,0 -7.5,-0.802118 -7.5,-8.365747 0,-7.563629 7.5,-8.634253 7.5,-8.634253 h 20"></path></svg>
+                        </div>
+
+                        <!-- Primary Navigation
+                        ============================================= -->
+                        <nav class="primary-menu">
+                            <ul class="menu-container">
+                                <li class="menu-item">
+                                    <a class="menu-link" asp-area="" asp-controller="AdminEstablecimiento" asp-action="Index"><div>Inicio</div></a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" asp-area="" asp-controller="User" asp-action="Index"><div>Usuarios</div></a>
+                                   
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Producto" asp-action="Index"><div>Productos</div></a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Compra" asp-action="Index"><div>Compras</div></a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Pedido" asp-action="Index"><div>Pedidos</div></a>
+                                </li>
+                                <li class="menu-item">
+                                    <a class="menu-link" asp-area="" asp-controller="Venta" asp-action="Index"><div>Ventas</div></a>
+                                </li>
+                                <li class="menu-item">
+                                    @if (SignInManager.IsSignedIn(User))
+                                    {
+                                        <form class="form-inline" asp-controller="User" asp-action="Logout">
+                                            <button type="submit" class="menu-link"><div>Logout</div></button>
+                                        </form>
+                                    }
+                                    else
+                                    {
+                                        <a class="menu-link" asp-area="" asp-controller="User" asp-action="Login"><div>Ingresar</div></a>
+                                    }
+                                </li>
+
+                                </li>
+                        </nav><!-- #primary-menu end -->
+                    </div>
+                </div>
+            </div>
+            <div class="header-wrap-clone"></div>
+        </header><!-- #header end -->
+        <!--<header>
+            <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+                <div class="container">
+                    <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> GestionVentas</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                            aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"> </span>
+                    </button>
+                    <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                        <ul class="navbar-nav flex-grow-1">
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index"> Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Usuario" asp-action="Login"> Ingresar</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header> -->
+
+        @RenderSection("TituloPrincipal", required: false)
+        @RenderSection("SliderPrincipal", required: false)
+        <section id="content">
+            <div class="content-wrap">
+                @RenderBody()
+            </div>
+        </section>
+
+        <footer id="footer" class="dark">
+            <div class="container">
+                &copy; 2021 - GestionVentas - <a asp-area="" asp-controller="Home" asp-action="Privacy"> Privacy</a>
+            </div>
+        </footer>
+
+    </div><!-- #wrapper end -->
+    <!-- JavaScripts
+    ============================================= -->
+    <script src="~/js/jquery.js"></script>
+    <script src="~/js/plugins.min.js"></script>
+    <!-- Footer Scripts
+    ============================================= -->
+    <script src="~/js/functions.js"></script>
+    <script src="~/js/toastr.min.js" asp-append-version="true"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

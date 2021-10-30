@@ -1,0 +1,99 @@
+﻿@model IEnumerable<GestionVentasV2.Models.ViewModels.usuarioVM>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Registrar usuario</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre Completo
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.correo)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.direccion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.telefono)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaIngreso)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaRetiro)
+            </th>
+
+            <th>
+                Establecimiento
+            </th>
+            <th>
+                Tipo de Usuario
+            </th>
+            <th>
+                Rol
+            </th>
+            <th>
+                Estado
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+                @Html.DisplayFor(modelItem => item.apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.correo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.direccion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.telefono)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaIngreso)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaRetiro)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.establecimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoUsuario)
+            </td>
+            <td>
+
+                @foreach (var rol in item.Roles)
+                {
+                    @Html.DisplayFor(modelItem => rol.nombre)
+
+                }
+
+            </td>
+            <td>
+                @(item.estados_id == 1 ? "Activo" : "Inactivo")
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm mt-1" asp-action="Edit" asp-route-id="@item.id">Actualizar</a>
+                <a class="btn btn-primary btn-sm mt-1" asp-action="Details" asp-route-id="@item.id">Ver detalles</a>
+                <a class="btn btn-sm mt-1 @(item.estados_id == 1 ? "btn-danger" : "btn-success")" asp-action="Delete" asp-route-id="@item.id">@(item.estados_id == 1 ? "Deshabilitar" : "Habilitar")</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

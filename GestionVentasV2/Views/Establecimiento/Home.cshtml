@@ -1,0 +1,78 @@
+﻿@model IEnumerable<GestionVentasV2.Models.ViewModels.productoVM>
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@{
+    ViewData["Title"] = "Home";
+    Layout = "_LayoutPublic";
+
+
+}
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-image: url('../imagenes/header/headerbg.jpeg'); padding: 120px 0;" data-bottom-top="background-position:0px 300px;" data-top-bottom="background-position:0px -300px;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">@ViewBag.datosEstablecimiento.nombreComercial</h1>
+            <!--<span data-animate="fadeInUp" data-delay="300">A Short Page Title Tagline</span>-->
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="#">@ViewBag.datosEstablecimiento.nombreComercial</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li> -->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+<div class="container clearfix">
+    
+    @if (HttpContextAccessor.HttpContext.Request.Query["PedidoRealizado"] == "1")
+    {
+    <div class="alert alert-success" role="alert">
+        <h3 class="alert-heading mb-3">Hemos recibido tu pedido!</h3>
+        <p class="mb-0">Se ha realizado tu pedido con éxito, en unos momentos recibirás en tu correo la información completa de tu pedido.</p>
+    </div>
+    }
+
+    <div class="heading-block center">
+        <div class="row">
+            <div class="col-12 col-sm-6 col-lg-3 mb-3 mb-lg-0" style="margin: 0 auto;">
+                <img alt="@ViewBag.datosEstablecimiento.nombreComercial" src="/@ViewBag.datosEstablecimiento.pathImagen" class="img-thumbnail w-100 d-block">
+            </div>
+        </div>
+        <h2>Tienda</h2>
+        <span>@ViewBag.datosEstablecimiento.descripcionGeneral</span>
+        <h4 class="mt-6">Productos que ofrecemos</h4>
+    </div>
+
+    <!-- Shop
+                    ============================================= -->
+    <div id="shop" class="shop row grid-container gutter-30" data-layout="fitRows">
+        @foreach (var item in Model)
+        {
+
+
+            <div class="product col-lg-3 col-md-4 col-sm-6 col-12">
+                <div class="grid-inner">
+                    <div class="product-image">
+                        <a href="#"><img src="~/@item.pathImagen" alt="Checked Short Dress"></a>
+
+                        <div class="sale-flash badge bg-primary p-2">@item.nombreCategoria</div>
+                        <div class="bg-overlay">
+                            <div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400"></div>
+                            <div class="bg-overlay-bg bg-transparent"></div>
+                        </div>
+                    </div>
+                    <div class="product-desc">
+                        <div class="product-title"><h3><a asp-controller="Producto" asp-action="ProductoEstablecimiento" asp-route-ProductoId="@item.id">@item.nombre</a></h3></div>
+                        <div class="product-price"><ins>Q @item.precioVenta</ins></div>
+
+                    </div>
+                </div>
+            </div>
+
+        }
+    </div>
+</div>

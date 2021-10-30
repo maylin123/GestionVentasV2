@@ -1,0 +1,67 @@
+﻿@model IEnumerable<GestionVentasV2.Models.establecimiento>
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutPublic";
+}
+
+
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" class="page-title-parallax page-title-dark include-header" style="padding: 250px 0; background-image: url('imagenes/slider/slide1.jpg'); background-size: cover; background-position: center center;" data-bottom-top="background-position:0px 400px;" data-top-bottom="background-position:0px -500px;">
+
+        <div class="container clearfix">
+            <h1>Bienvenido</h1>
+            <span>Todo lo que necesitas comprar, lo encuentras aquí!</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Inicio</a></li>
+                
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+
+
+
+    <div class="heading-block center">
+        <h2>Tiendas</h2>
+        <span>Visita nuestras tiendas</span>
+    </div>
+
+    <!-- Shop
+                        ============================================= -->
+    <div id="shop" class="shop row grid-container gutter-30" data-layout="fitRows">
+        @foreach (var item in Model)
+        {
+
+            <div class="product col-lg-3 col-md-4 col-sm-6 col-12 center">
+                <div class="grid-inner">
+                    <div class="product-image">
+                        <a href="#"><img src="~/@item.pathImagen" alt="Checked Short Dress"></a>
+
+                        <!--<div class="sale-flash badge bg-secondary p-2">Out of Stock</div>-->
+                        <div class="bg-overlay">
+                            <div class="bg-overlay-content align-items-end justify-content-between" data-hover-animate="fadeIn" data-hover-speed="400"></div>
+                            <div class="bg-overlay-bg bg-transparent"></div>
+                        </div>
+                    </div>
+                    <div class="product-desc">
+                        <div class="product-title"><h3><a asp-controller="Establecimiento" asp-action="Home" asp-route-EstablecimientoId="@item.id">@item.nombreComercial</a></h3></div>
+                        <div class="product-price"><ins>@item.tipoEstablecimiento.nombre</ins></div>
+                    </div>
+                </div>
+            </div>
+
+
+        }
+
+
+    </div>
+</div>

@@ -1,0 +1,82 @@
+﻿@model GestionVentasV2.Models.producto
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "_LayoutEstablecimiento";
+}
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Productos</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Prodcutos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+    <h3>Actualizar</h3>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="id" />
+                <div class="form-group">
+                    <label asp-for="nombre" class="control-label"></label>
+                    <input asp-for="nombre" class="form-control" />
+                    <span asp-validation-for="nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="descripcion" class="control-label"></label>
+                    <input asp-for="descripcion" class="form-control" />
+                    <span asp-validation-for="descripcion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="pathImagen" class="control-label"></label>
+                    <input asp-for="pathImagen" class="form-control" />
+                    <span asp-validation-for="pathImagen" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="establecimiento_id" class="control-label"></label>
+                    <select asp-for="establecimiento_id" class="form-control" asp-items="ViewBag.establecimiento_id"></select>
+                    <span asp-validation-for="establecimiento_id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="tipoProducto_id" class="control-label"></label>
+                    <select asp-for="tipoProducto_id" class="form-control" asp-items="ViewBag.tipoProducto_id"></select>
+                    <span asp-validation-for="tipoProducto_id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="categoria_id" class="control-label"></label>
+                    <select asp-for="categoria_id" class="form-control" asp-items="ViewBag.categoria_id"></select>
+                    <span asp-validation-for="categoria_id" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Regresar a la lista</a>
+    </div>
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

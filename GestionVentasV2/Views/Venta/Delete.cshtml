@@ -1,0 +1,118 @@
+﻿@model GestionVentasV2.Models.venta
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "_LayoutEstablecimiento";
+}
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Ventas</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Prodcutos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+
+    <h1>Eliminar</h1>
+
+    <h3>Are you sure you want to delete this?</h3>
+    <div>
+        <h4>venta</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.fechaPedido)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fechaPedido)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.fechaEntrega)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fechaEntrega)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.totalVenta)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.totalVenta)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.usuarioCreacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.usuarioCreacion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.fechaCreacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fechaCreacion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.usuarioActualizacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.usuarioActualizacion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.fechaActualizacion)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.fechaActualizacion)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.establecimiento)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.establecimiento.correoElectronico)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.pedido)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.pedido.correo)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.cliente)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.cliente.apellido)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.estados)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.estados.nombre)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.usuario)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.usuario.apellido)
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="id" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Regresar a la lista</a>
+        </form>
+    </div> 
+</div>

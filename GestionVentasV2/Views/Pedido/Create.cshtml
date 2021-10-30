@@ -1,0 +1,327 @@
+﻿@model GestionVentasV2.Models.pedido
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_LayoutEstablecimiento";
+}
+
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Pedidos</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Prodcutos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+
+    <h3>Crear Pedido</h3>
+
+    <hr />
+    <div class="row">
+        <div class="col-md-12">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="fecha" class="control-label"></label>
+                    <input asp-for="fecha" class="form-control" />
+                    <span asp-validation-for="fecha" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="nombreCliente" class="control-label"></label>
+                    <input asp-for="nombreCliente" class="form-control" />
+                    <span asp-validation-for="nombreCliente" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="direccionEntrega" class="control-label"></label>
+                    <input asp-for="direccionEntrega" class="form-control" />
+                    <span asp-validation-for="direccionEntrega" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="telefono" class="control-label"></label>
+                    <input asp-for="telefono" class="form-control" />
+                    <span asp-validation-for="telefono" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="correo" class="control-label"></label>
+                    <input asp-for="correo" class="form-control" />
+                    <span asp-validation-for="correo" class="text-danger"></span>
+                </div>
+
+
+                <div class="card" style="width: 100%">
+
+                    <div class="card-body">
+                        <h5 class="card-title">Agregar productos</h5>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Seleccionar producto</label>
+                                    <select name="producto_id" id="productoId" class="form-control" asp-items="@ViewBag.productos">
+                                        <option value="0">Seleccione un producto</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Cantidad</label>
+                                    <input name="precio" id="productoCantidad" type="number" class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Precio de venta</label>
+                                    <input name="precio" id="productoPrecioVenta" type="text" readonly class="form-control" />
+                                </div>
+                            </div>
+
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label class="control-label">Cantidad disponible</label>
+                                    <input name="precio" id="productoCantidadDisponible" type="text" readonly class="form-control" />
+                                </div>
+                            </div>
+
+
+                            <div class="col-md-12 mt-2 mb-2">
+                                <input type="button" value="Agregar producto" onclick="Add()" class="btn btn-primary" />
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table id="productosTable" cellpadding="0" cellspacing="0" border="1" style="width:100%;">
+                                    <thead>
+                                        <tr>
+                                            <th>Eliminar</th>
+                                            <th>Id Producto</th>
+                                            <th>Producto</th>
+                                            <th>Cantidad</th>
+                                            <th>Precio</th>
+                                            <th>Subtotal</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Regresar a la lista</a>
+    </div>
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+        <script type="text/javascript">
+
+    $("body").on("change", "#productoId", function () {
+
+        var t = $("input[name='__RequestVerificationToken']").val();
+        let ProductoId = $("#productoId").val();
+
+        if (ProductoId <= 0) {
+            return;
+        }
+
+        $.ajax({
+            url: "@Url.Action("Producto", "Stock")/" + ProductoId, // Url
+                    headers:
+                    {
+                        "RequestVerificationToken": t
+                    },
+                    data: {
+                            // Datos / Parámetros
+
+                    },
+                    type: "get"  // Verbo HTTP
+                })
+                // Se ejecuta si todo fue bien.
+                .done(function (result) {
+
+                    if (result.status === 200) {
+                        $("#productoPrecioVenta").val(result.datos.precioVenta);
+                        $("#productoCantidadDisponible").val(result.datos.cantidad);
+
+                    } else {
+                        //console.warn("No existe el producto en stock")
+                        toastr.warning('No existe el producto en stock', 'Error')
+                    }
+                })
+                // Se ejecuta si se produjo un error.
+                .fail(function (xhr, status, error) {
+                   alert("error")
+                })
+                // Hacer algo siempre, haya sido exitosa o no.
+                .always(function () {
+
+                });
+    });
+        </script>
+
+
+        <script type="text/javascript">
+            const arr = [];
+            function Add() {
+
+                let existe = false;
+                let total = 0;
+
+                if (isNaN($("#productoId").val()) || !$("#productoId").val() || $("#productoId").val().length === 0 || Number($("#productoId").val()) <= 0) {
+                    toastr.warning('No ha seleccionado un producto', 'Error');
+                    return;
+                }
+
+                //Validar que los datos de cantidad sea numero
+
+                if (isNaN($("#productoCantidad").val()) || !$("#productoCantidad").val() || $("#productoCantidad").val().length === 0 || Number($("#productoCantidad").val()) < 1) {
+                    toastr.warning('El valor de cantidad no es válido', 'Error');
+                    return;
+                }
+
+                if (isNaN($("#productoPrecioVenta").val()) || !$("#productoPrecioVenta").val() || $("#productoPrecioVenta").val().length === 0 || Number($("#productoPrecioVenta").val()) < 0.1) {
+                    toastr.warning('El valor de precio no es válido', 'Error');
+                    return;
+                }
+
+
+
+
+                //Validar que la cantidad disponible sea igual o mayor a la cantidad del pedido
+                if (Number($("#productoCantidadDisponible").val()) < Number($("#productoCantidad").val())) {
+
+                    toastr.warning('La cantidad especificada excede a la disponible en stock', 'Error');
+                    return;
+                }
+
+                //Validar que no exista un producto agregado en la lista de items
+                $('#productosTable tr').each(function (row, tr) {
+                    if ($(tr).find('td:eq(1)').text() == $("#productoId option:selected").val()) {
+                        existe = true;
+                    }
+
+                });
+
+
+
+                if (existe == false) {
+                    var tBody = $("#productosTable > TBODY")[0];
+                    //Add Row.
+                    row = tBody.insertRow(-1);
+
+                    //Agregar el boton para eliminar
+                    cell = $(row.insertCell(-1));
+                    var btnRemove = $("<input class='btn btn-danger btn-sm mt-2 mb-2 ml-2'/>");
+                    btnRemove.attr("type", "button");
+                    btnRemove.attr("onclick", "Remove(this);");
+                    btnRemove.val("Eliminar");
+                    cell.append(btnRemove);
+
+                    //Add Name cell.
+                    var cell = $(row.insertCell(-1));
+                    cell.html($("#productoId option:selected").val());
+
+                    //Add Name cell.
+                    var cell = $(row.insertCell(-1));
+                    cell.html($("#productoId option:selected").text());
+
+                    //Add Name cell.
+                    cell = $(row.insertCell(-1));
+                    cell.html($("#productoCantidad").val());
+
+
+                    //Add Name cell.
+                    cell = $(row.insertCell(-1));
+                    cell.html($("#productoPrecioVenta").val());
+
+                    //Calcular subtotal
+                    let subTotal = $("#productoPrecioVenta").val() * $("#productoCantidad").val();
+
+                    //Add Name cell.
+                    cell = $(row.insertCell(-1));
+                    cell.html(subTotal);
+
+
+                    //Recorrer la tabla para obtener el total a traves de los subtotales
+                    $('#productosTable tr').each(function (row, tr) {
+                        total = Number(total) + Number($(tr).find('td:eq(6)').text())
+
+                    });
+
+                    //Asignar el total al elemento totalFactura
+                    $("#totalFactura").val(total);
+
+                    //Resetear los valores de los campos
+
+                    $("#productoId").val('0');
+                    $("#productoPrecio").val('');
+                    $("#productoCantidad").val('');
+                    $("#productoPrecioVenta").val('');
+                    $("#productoCantidadDisponible").val('');
+                    //console.log(total)
+
+                } else {
+
+                    toastr.warning('El producto que desea ingresar, ya es encuentra en la lista.', 'Error');
+                }
+
+
+            }
+
+
+
+            //Eliminar un itemn de la lista de productos
+            function Remove(button) {
+                let total = 0;
+                //Determine the reference of the Row using the Button.
+                var row = $(button).closest("TR");
+                var name = $("TD", row).eq(2).html();
+                if (confirm("Está seguro de eliminar el prodcuto: " + name)) {
+
+                    //Get the reference of the Table.
+                    var table = $("#productosTable")[0];
+
+                    //Delete the Table row using it's Index.
+                    table.deleteRow(row[0].rowIndex);
+
+                    //Recorrer la tabla para obtener el total a traves de los subtotales
+                    $('#productosTable tr').each(function (row, tr) {
+                        total = Number(total) + Number($(tr).find('td:eq(5)').text())
+
+                    });
+
+                    //Asignar el total al elemento totalFactura
+                    $("#totalFactura").val(total);
+                }
+            }
+
+        </script>
+
+    }

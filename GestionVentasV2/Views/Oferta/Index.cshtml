@@ -1,0 +1,113 @@
+﻿@model IEnumerable<GestionVentasV2.Models.oferta>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Ofertas</h1>
+
+<p>
+    <a class="btn btn-primary" asp-action="Create">Registrar Oferta</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Nombre
+            </th>
+            <th>
+                Descripción
+            </th>
+            <th>
+                Imagen
+            </th>
+            <th>
+                Fecha Apertura
+            </th>
+            <th>
+                Fecha Cierre
+            </th>
+            <th>
+                Porcentaje Descuento
+            </th>
+            <th>
+                Estado
+            </th>
+            <!--
+    <th>
+        @Html.DisplayNameFor(model => model.usuarioCreacion)
+    </th>
+
+    <th>
+        @Html.DisplayNameFor(model => model.fechaCreacion)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.usuarioActualizacion)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.fechaActualizacion)
+    </th>
+    <th>
+        @Html.DisplayNameFor(model => model.establecimiento)
+    </th>
+
+    -->
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.imagen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaApertura)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaCierre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.porcentajeDescuento)
+            </td>
+            <!--
+               <td>
+                   @Html.DisplayFor(modelItem => item.usuarioCreacion)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.fechaCreacion)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.usuarioActualizacion)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.fechaActualizacion)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.establecimiento.correoElectronico)
+               </td>
+               <td>
+                   @Html.DisplayFor(modelItem => item.estados.nombre)
+               </td>
+    -->
+            <td>
+                @(item.estados_id == 1 ? "Activo" : "Inactivo")
+
+            </td>
+            <td>
+                <a class="btn btn-primary btn-sm mt-1" asp-action="Edit" asp-route-id="@item.id">Actualizar</a>
+                <a class="btn btn-primary btn-sm mt-1" asp-action="Details" asp-route-id="@item.id">Ver detalles</a>
+                <a class="btn btn-sm mt-1 @(item.estados_id == 1 ? "btn-danger" : "btn-success")" asp-action="Delete" asp-route-id="@item.id">@(item.estados_id == 1 ? "Deshabilitar" : "Habilitar")</a>
+            </td>
+        </tr>
+            }
+                </tbody>
+            </table>

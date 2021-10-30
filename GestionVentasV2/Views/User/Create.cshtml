@@ -1,0 +1,112 @@
+﻿@model GestionVentasV2.Models.ViewModels.usuarioVM
+@{
+    ViewData["Title"] = "Create";
+    Layout = "_LayoutEstablecimiento";
+}
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Usuarios</h1>
+            <span data-animate="fadeInUp" data-delay="300">@ViewBag.Establecimiento</span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Usuarios</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+
+    <h3>Usuarios</h3>
+
+    <h4>Registro</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+
+                <div class="form-group">
+                    <label asp-for="correo" class="control-label">Email</label>
+                    <input asp-for="correo" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="correo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password" class="control-label">Contraseña</label>
+                    <input asp-for="Password" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ConfirmedPassword" class="control-label">Confirmar Contraseña</label>
+                    <input asp-for="ConfirmedPassword" class="form-control" autocomplete="off" />
+                    <span asp-validation-for="ConfirmedPassword" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="nombre" class="control-label">Nombre</label>
+                    <input asp-for="nombre" class="form-control" />
+                    <span asp-validation-for="nombre" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="apellido" class="control-label">Apellido</label>
+                    <input asp-for="apellido" class="form-control" />
+                    <span asp-validation-for="apellido" class="text-danger"></span>
+                </div>
+                
+                <div class="form-group">
+                    <label asp-for="direccion" class="control-label">Dirección</label>
+                    <input asp-for="direccion" class="form-control" />
+                    <span asp-validation-for="direccion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="telefono" class="control-label">Teléfono</label>
+                    <input asp-for="telefono" class="form-control" />
+                    <span asp-validation-for="telefono" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="fechaIngreso" class="control-label">Fecha de Ingreso</label>
+                    <input asp-for="fechaIngreso" class="form-control" />
+                    <span asp-validation-for="fechaIngreso" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="establecimiento_id" class="control-label">Establecimiento</label>
+                    <select asp-for="establecimiento_id" class="form-control" asp-items="ViewBag.establecimiento_id">
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="tipoUsuario_id" class="control-label">Tipo de usuario</label>
+                    <select asp-for="tipoUsuario_id" class="form-control" asp-items="ViewBag.tipoUsuario_id"></select>
+                </div>
+
+                <div class="form-group">
+                    <label class="control-label">Seleccionar Rol</label>
+                    <select name="rol_id" class="form-control" asp-items="@ViewBag.roles"></select>
+                </div>
+
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Regresar a la lista</a>
+    </div> 
+</div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }

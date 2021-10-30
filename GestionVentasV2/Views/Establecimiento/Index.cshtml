@@ -1,0 +1,105 @@
+﻿@model IEnumerable<GestionVentasV2.Models.establecimiento>
+
+@{
+    ViewData["Title"] = "Establecimientos";
+    Layout = "_LayoutEstablecimiento";
+
+
+}
+
+@section TituloPrincipal
+{
+    <!-- Page Title
+            ============================================= -->
+    <section id="page-title" style="background-color:#9dccd6;">
+
+        <div class="container clearfix">
+            <h1 data-animate="fadeInUp">Establecimientos</h1>
+            <span data-animate="fadeInUp" data-delay="300"></span>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="#">Administración</a></li>
+                <li class="breadcrumb-item"><a>Establecimientos</a></li>
+                <!--<li class="breadcrumb-item active" aria-current="page">Page Titles</li>-->
+            </ol>
+        </div>
+
+    </section><!-- #page-title end -->
+}
+
+
+<div class="container clearfix">
+    <p>
+        <a class="btn btn-primary" asp-action="Create">Registrar establecimiento</a>
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>
+                    Razon Social
+                </th>
+                <th>
+                    Nombre Comercial
+                </th>
+                <th>
+                    Nit
+                </th>
+                <th>
+                    Correo Electronico
+                </th>
+                <th>
+                    Direccion Fiscal
+                </th>
+                <th>
+                    Dirección Mobiliaria
+                </th>
+                <th>
+                    Teléfono
+                </th>
+                <th>
+                    Estado
+                </th>
+                <th>
+                    Acciones
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.razonSocial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nombreComercial)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.nit)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.correoElectronico)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.direccionFiscal)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.direccionMobiliaria)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.telefono)
+                    </td>
+                    <td>
+                        @(item.estados_id == 1 ? "Activo" : "Inactivo")
+
+                    </td>
+                    <td>
+                        <a class="btn btn-primary btn-sm mt-1" asp-action="Edit" asp-route-id="@item.id">Actualizar</a>
+                        <a class="btn btn-primary btn-sm mt-1" asp-action="Details" asp-route-id="@item.id">Ver detalles</a>
+                        <a class="btn btn-sm mt-1 @(item.estados_id == 1 ? "btn-danger" : "btn-success")" asp-action="Delete" asp-route-id="@item.id">@(item.estados_id == 1 ? "Deshabilitar" : "Habilitar")</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

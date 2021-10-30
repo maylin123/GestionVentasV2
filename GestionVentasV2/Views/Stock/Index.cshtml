@@ -1,0 +1,101 @@
+﻿@model IEnumerable<GestionVentasV2.Models.stock>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Index</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidad)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.precioVenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.usuarioCreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaCreacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.usuarioActualizacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fechaActualizacion)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.estados)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.detalleVenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.detalleCompra)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidadEntrada)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.cantidadSalida)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidad)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precioVenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuarioCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.usuarioActualizacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fechaActualizacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estados.nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.detalleVenta.usuarioCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.detalleCompra.usuarioCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.producto.usuarioCreacion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidadEntrada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.cantidadSalida)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.id">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.id">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.id">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
